@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -46,4 +47,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findFirstByName(String name, Sort sort);
 
     Page<User> findByName(String name, Pageable pageable);
+
+    @Query(value = "select * from user limit 1;", nativeQuery = true)
+    Map<String, Object> findRawRecord();
 }
